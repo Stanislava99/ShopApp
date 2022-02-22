@@ -18,15 +18,20 @@ public class UserService {
             return null;
         } else
         {
+            if(userRepository.findByLogin(login).isPresent() || userRepository.findByEmail(email).isPresent())
+                return null;
+            }
             User user = new User();
             user.setLogin(login);
             user.setPassword(password);
             user.setEmail(email);
             return userRepository.save(user);
         }
-    }
+
 
     public User authenticatedUser(String login, String password) {
         return userRepository.findByLoginAndPassword(login, password).orElse(null);
     }
+
+
 }
