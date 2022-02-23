@@ -70,6 +70,9 @@ public class UserService {
         return user.map(value -> value.getRole().toString()).orElse(null);
     }
 
+
+
+
     @EventListener(ApplicationReadyEvent.class)
     public void initAdmin() {
         User user = new User();

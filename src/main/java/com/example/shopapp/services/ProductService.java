@@ -50,4 +50,23 @@ public class ProductService {
             return "Product added to cart";
         }
     }
+
+
+    public String removeProductFromCart(Long userid, Long productid) {
+        User user = userRepository.findById(userid).get();
+        Product product = productRepository.findById(productid).get();
+
+        if (user.getProductCart().contains(product)) {
+            user.getProductCart().remove(product);
+            return "Product removed from cart";
+        }
+        else {
+            return "Product not in cart";
+        }
+    }
+
+    public Iterable<Product> getUserCart(Long userid) {
+        User user = userRepository.findById(userid).get();
+        return user.getProductCart();
+    }
 }

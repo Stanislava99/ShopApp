@@ -35,4 +35,17 @@ public class ProductController {
     String addProductToCart(@PathVariable Long userid, @PathVariable Long productid) {
         return productService.addProductToCart(userid, productid);
     }
+
+    // remove product from user product cart
+    @DeleteMapping("/product/{userid}-{productid} /cart")
+    String removeProductFromCart(@PathVariable Long userid, @PathVariable Long productid) {
+        return productService.removeProductFromCart(userid, productid);
+    }
+
+    // get user product cart
+    @GetMapping("/product/{userid} /cart")
+    Iterable<Product> getUserCart(@PathVariable Long userid) {
+        return productService.getUserCart(userid);
+    }
+
 }
