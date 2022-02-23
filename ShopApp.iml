@@ -15,7 +15,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="ShopApp" value="fc53a631-dd6b-4f57-a0ed-9ad203e9fd0d" />
+          <factory-entry name="ShopApp" value="0ce6e85d-c2ca-42fc-941d-8c231809f4af" />
           <factory-entry name="entityManagerFactory" value="0ce6e85d-c2ca-42fc-941d-8c231809f4af" />
         </datasource-mapping>
         <naming-strategy-map />

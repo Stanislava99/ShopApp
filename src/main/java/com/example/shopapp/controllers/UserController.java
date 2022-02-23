@@ -25,6 +25,29 @@ public class UserController {
         return ResponseEntity.ok( userService.registerUser(user.getLogin(), user.getPassword(), user.getEmail()));
     }
 
+    @GetMapping("/users")
+    ResponseEntity<Iterable<User>> getUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
 
+    @GetMapping("/user/{id}")
+    ResponseEntity<User> getUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+
+    @DeleteMapping("/user/{id}")
+    ResponseEntity<User> deleteUser(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.deleteUser(id));
+    }
+
+    @PutMapping("/user/{id}")
+    ResponseEntity<User> updateUser(@PathVariable Long id, @ModelAttribute User user) {
+        return ResponseEntity.ok(userService.updateUser(id, user));
+    }
+
+    @GetMapping("/user/{id}/role")
+    ResponseEntity<String> getUserRole(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getUserRole(id));
+    }
 
 }
