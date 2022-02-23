@@ -7,6 +7,7 @@ import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -31,6 +32,10 @@ public class User {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @OneToMany
+    private List<Product> productCart;
+
 
     public Long getId() {
         return id;
@@ -70,6 +75,14 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Product> getProductCart() {
+        return productCart;
+    }
+
+    public void setProductCart(Product productCart) {
+        this.productCart.add(productCart);
     }
 
     @Override

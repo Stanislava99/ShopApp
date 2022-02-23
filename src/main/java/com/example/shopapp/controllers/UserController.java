@@ -2,6 +2,7 @@ package com.example.shopapp.controllers;
 
 import com.example.shopapp.model.User;
 import com.example.shopapp.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,11 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1")
 public class UserController {
 
+    @Autowired
     public UserService userService;
-
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @PostMapping("/login")
     ResponseEntity<User> login(@ModelAttribute User user) {
@@ -49,5 +47,7 @@ public class UserController {
     ResponseEntity<String> getUserRole(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserRole(id));
     }
+
+
 
 }
