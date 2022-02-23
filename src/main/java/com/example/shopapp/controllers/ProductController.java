@@ -21,7 +21,7 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    ResponseEntity<Product> createProduct(Product product) {
+    ResponseEntity<Product> createProduct(@ModelAttribute Product product) {
         return ResponseEntity.ok(productService.createProduct(product));
     }
 
@@ -30,22 +30,10 @@ public class ProductController {
         return ResponseEntity.ok(productService.deleteProduct(id));
     }
 
-    // add product to user product cart
-    @PostMapping("/product/{userid}-{productid} /cart")
-    String addProductToCart(@PathVariable Long userid, @PathVariable Long productid) {
-        return productService.addProductToCart(userid, productid);
-    }
 
-    // remove product from user product cart
-    @DeleteMapping("/product/{userid}-{productid} /cart")
-    String removeProductFromCart(@PathVariable Long userid, @PathVariable Long productid) {
-        return productService.removeProductFromCart(userid, productid);
+    // get all products with more than 50 present discount
+    @GetMapping("/products/discount")
+    Iterable<Product> getAllProductsWithDiscount() {
+        return productService.getAllProductsWithDiscount();
     }
-
-    // get user product cart
-    @GetMapping("/product/{userid} /cart")
-    Iterable<Product> getUserCart(@PathVariable Long userid) {
-        return productService.getUserCart(userid);
-    }
-
 }

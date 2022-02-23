@@ -1,5 +1,6 @@
 package com.example.shopapp.controllers;
 
+import com.example.shopapp.Helper.Role;
 import com.example.shopapp.model.User;
 import com.example.shopapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class UserController {
 
     @PostMapping("/register")
     ResponseEntity<User> register(@ModelAttribute User user) {
-        return ResponseEntity.ok( userService.registerUser(user.getLogin(), user.getPassword(), user.getEmail()));
+        return ResponseEntity.ok( userService.registerUser(user.getLogin(), user.getPassword(), user.getEmail(), Role.USER));
     }
 
     @GetMapping("/users")

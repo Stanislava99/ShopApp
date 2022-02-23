@@ -1,11 +1,8 @@
 package com.example.shopapp.services;
-
 import com.example.shopapp.model.Product;
-import com.example.shopapp.model.User;
 import com.example.shopapp.repos.ProductRepository;
 import com.example.shopapp.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,35 +35,5 @@ public class ProductService {
         return null;
     }
 
-    public String addProductToCart(Long userid, Long productid) {
-        User user = userRepository.findById(userid).get();
-        Product product = productRepository.findById(productid).get();
 
-        if (user.getProductCart().contains(product)) {
-            return "Product already in cart";
-        }
-        else {
-            user.setProductCart(product);
-            return "Product added to cart";
-        }
-    }
-
-
-    public String removeProductFromCart(Long userid, Long productid) {
-        User user = userRepository.findById(userid).get();
-        Product product = productRepository.findById(productid).get();
-
-        if (user.getProductCart().contains(product)) {
-            user.getProductCart().remove(product);
-            return "Product removed from cart";
-        }
-        else {
-            return "Product not in cart";
-        }
-    }
-
-    public Iterable<Product> getUserCart(Long userid) {
-        User user = userRepository.findById(userid).get();
-        return user.getProductCart();
-    }
 }

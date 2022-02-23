@@ -3,8 +3,6 @@ package com.example.shopapp.model;
 
 import com.example.shopapp.Helper.Role;
 import com.sun.istack.NotNull;
-import net.bytebuddy.implementation.bind.annotation.Default;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.util.List;
@@ -33,8 +31,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany
-    private List<Product> productCart;
+//    @OneToMany
+//    @JoinTable(name = "users_table_product_cart",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "product_cart_id"))
+//    private List<Product> productCart;
 
 
     public Long getId() {
@@ -77,13 +78,13 @@ public class User {
         this.role = role;
     }
 
-    public List<Product> getProductCart() {
-        return productCart;
-    }
-
-    public void setProductCart(Product productCart) {
-        this.productCart.add(productCart);
-    }
+//    public List<Product> getProductCart() {
+//        return productCart;
+//    }
+//
+//    public void setProductCart(Product productCart) {
+//        this.productCart.add(productCart);
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -101,7 +102,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(id, login, password, email, role);
     }
-
-
 
 }

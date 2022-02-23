@@ -17,7 +17,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User registerUser(String login, String password, String email) {
+    public User registerUser(String login, String password, String email, Role role) {
         if (login == null || password == null) {
             return null;
         } else
@@ -29,6 +29,7 @@ public class UserService {
             user.setLogin(login);
             user.setPassword(password);
             user.setEmail(email);
+            user.setRole(role);
             return userRepository.save(user);
         }
 
@@ -70,11 +71,13 @@ public class UserService {
         return user.map(value -> value.getRole().toString()).orElse(null);
     }
 
-
-
-
     @EventListener(ApplicationReadyEvent.class)
     public void initAdmin() {
+        for (User u : userRepository.findAll()) {
+            if (u.getRole() == Role.ADMIN) {
+                userRepository.delete(u);
+            }
+        }
         User user = new User();
         user.setLogin("admin");
         user.setPassword("admin");

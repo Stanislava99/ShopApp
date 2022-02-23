@@ -1,5 +1,6 @@
 package com.example.shopapp.model;
 
+import com.example.shopapp.Helper.ProductType;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -41,10 +42,15 @@ public class Product {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @NotNull
+    @Column(name = "product_type")
+    @Enumerated(EnumType.STRING)
+    private ProductType productType;
+
     public Product() {
     }
 
-    public Product(String name, int price, String description, String companyName, int discountPercentage, int discountPrice, int discountDays, String imageUrl) {
+    public Product(String name, int price, String description, String companyName, int discountPercentage, int discountPrice, int discountDays, String imageUrl, ProductType productType) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -53,15 +59,17 @@ public class Product {
         this.discountPrice = discountPrice;
         this.discountDays = discountDays;
         this.imageUrl = imageUrl;
+        this.productType = productType;
     }
 
-    public Product(String name, int price, String description, String companyName, String imageUrl) {
+    public Product(String name, int price, String description, String companyName, String imageUrl, ProductType productType) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.companyName = companyName;
         this.discountPercentage = 0;
         this.imageUrl = imageUrl;
+        this.productType = productType;
     }
 
     public Long getId() {
@@ -134,6 +142,14 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public void setProductType(ProductType productType) {
+        this.productType = productType;
     }
 
     @Override
