@@ -21,19 +21,32 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    ResponseEntity<Product> createProduct(@ModelAttribute Product product) {
-        return ResponseEntity.ok(productService.createProduct(product));
+    ResponseEntity<Product> createProduct(@ModelAttribute Product product, @RequestParam Long id) {
+        return (productService.createProduct(product,id) != null) ? ResponseEntity.ok(productService.createProduct(product,id)) : ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping("/product/{id}")
-    ResponseEntity<Product> deleteProduct(@PathVariable Long id) {
-        return ResponseEntity.ok(productService.deleteProduct(id));
+    ResponseEntity<Product> deleteProduct(@PathVariable Long id,  @RequestParam Long personId) {
+        return (productService.deleteProduct(id, personId) != null) ? ResponseEntity.ok(productService.deleteProduct(id,personId)) : ResponseEntity.badRequest().build();
     }
 
 
-    // get all products with more than 50 present discount
+    // get all products with discount
     @GetMapping("/products/discount")
     Iterable<Product> getAllProductsWithDiscount() {
         return productService.getAllProductsWithDiscount();
     }
+
+    // get products with 50% or more discount
+    @GetMapping("/products/discount/50")
+    Iterable<Product> getProductsWith50PercentDiscount() {
+        return productService.getProductsWith50PercentDiscount();
+    }
+
+    // get products with 3 days left for discount
+    @GetMapping("/products/discount/3days")
+    Iterable<Product> getProductsWith3DaysLeftForDiscount() {
+        return productService.getProductsWith3DaysLeftForDiscount();
+    }
+
 }

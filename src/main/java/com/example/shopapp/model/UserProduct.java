@@ -1,44 +1,45 @@
 package com.example.shopapp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users_table_product_cart")
 public class UserProduct {
-
     @Id
-    private Long userId;
+    private Long id;
 
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
-    private Long productId;
+    @ManyToOne
+    @JoinColumn(name="product_cart_id")
+    private Product product;
 
-    public UserProduct(Long userId, Long productId) {
-        this.userId = userId;
-        this.productId = productId;
+    public UserProduct(User user, Product product) {
+        this.user = user;
+        this.product = product;
     }
 
     public UserProduct() {
 
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     @Override
@@ -46,11 +47,11 @@ public class UserProduct {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserProduct that = (UserProduct) o;
-        return userId == that.userId && productId == that.productId;
+        return Objects.equals(user.getId(), that.getUser().getId()) && product.getId().equals(that.getProduct().getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, productId);
+        return Objects.hash(user.getId(), product.getId());
     }
 }
