@@ -2,7 +2,6 @@ package com.example.shopapp.controllers;
 
 import com.example.shopapp.model.Product;
 import com.example.shopapp.services.ProductService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

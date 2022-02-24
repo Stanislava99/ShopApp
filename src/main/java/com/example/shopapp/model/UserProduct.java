@@ -7,6 +7,7 @@ import java.util.Objects;
 @Table(name = "users_table_product_cart")
 public class UserProduct {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -24,6 +25,14 @@ public class UserProduct {
 
     public UserProduct() {
 
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public User getUser() {
