@@ -1,5 +1,8 @@
 package com.example.shopapp.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -10,9 +13,11 @@ public class UserProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
+
 
     @ManyToOne
     @JoinColumn(name="product_cart_id")

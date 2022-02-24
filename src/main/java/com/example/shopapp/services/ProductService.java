@@ -2,7 +2,9 @@ package com.example.shopapp.services;
 import com.example.shopapp.Helper.Role;
 import com.example.shopapp.model.Product;
 import com.example.shopapp.model.User;
+import com.example.shopapp.model.UserProduct;
 import com.example.shopapp.repos.ProductRepository;
+import com.example.shopapp.repos.UserProductRepository;
 import com.example.shopapp.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -19,7 +22,8 @@ public class ProductService {
     private ProductRepository productRepository;
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private UserProductRepository userProductRepository;
 
     public List<Product> getProducts() {
         return productRepository.findAll();
@@ -35,15 +39,19 @@ public class ProductService {
     }
 
 
-    public Product deleteProduct(Long id, Long personId) {
-        if (userRepository.findById(id).get().getRole() == Role.ADMIN) {
-            Optional<Product> product = productRepository.findById(id);
-            if (product.isPresent()) {
+    public String deleteProduct(Long id, Long personId) {
+        if (userRepository.findById(personId).get().getRole() == Role.ADMIN) {
+            if (productRepository.findById(id).isPresent()) {
+                for (UserProduct userProduct : userProductRepository.findAll()) {
+                    if (Objects.equals(userProduct.getProduct().getId(), id)) {
+                        userProductRepository.delete(userProduct);
+                    }
+                }
                 productRepository.deleteById(id);
-                return product.get();
+                return "Product deleted";
             }
         }
-        return null;
+        return "Product not deleted";
     }
 
 

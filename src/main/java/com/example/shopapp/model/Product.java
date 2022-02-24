@@ -2,6 +2,8 @@ package com.example.shopapp.model;
 
 import com.example.shopapp.Helper.ProductType;
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -50,7 +52,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, int price, String description, String companyName, int discountPercentage, int discountPrice, int discountDays, String imageUrl, ProductType productType) {
+    public Product(String name, int price, String description, String companyName, int discountPercentage, int discountPrice, int discountDays, String imageUrl, String productType) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -59,18 +61,9 @@ public class Product {
         this.discountPrice = discountPrice;
         this.discountDays = discountDays;
         this.imageUrl = imageUrl;
-        this.productType = productType;
+        this.productType = ProductType.valueOf(productType);
     }
 
-    public Product(String name, int price, String description, String companyName, String imageUrl, ProductType productType) {
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.companyName = companyName;
-        this.discountPercentage = 0;
-        this.imageUrl = imageUrl;
-        this.productType = productType;
-    }
 
     public Long getId() {
         return id;

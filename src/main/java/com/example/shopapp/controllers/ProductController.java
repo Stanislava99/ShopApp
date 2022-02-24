@@ -25,8 +25,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/product/{id}")
-    ResponseEntity<Product> deleteProduct(@PathVariable Long id,  @RequestParam Long personId) {
-        return (productService.deleteProduct(id, personId) != null) ? ResponseEntity.ok(productService.deleteProduct(id,personId)) : ResponseEntity.badRequest().build();
+    String deleteProduct(@PathVariable Long id,  @RequestParam Long personId) {
+        return  productService.deleteProduct(id,personId);
     }
 
 
