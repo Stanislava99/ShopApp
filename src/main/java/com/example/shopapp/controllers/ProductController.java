@@ -21,7 +21,8 @@ public class ProductController {
 
     @PostMapping("/product")
     ResponseEntity<Product> createProduct(@ModelAttribute Product product, @RequestParam Long id) {
-        return (productService.createProduct(product,id) != null) ? ResponseEntity.ok(productService.createProduct(product,id)) : ResponseEntity.badRequest().build();
+        return (productService.createProduct(product,id) != null) ?
+                ResponseEntity.ok(productService.createProduct(product,id)) : ResponseEntity.badRequest().build();
     }
 
     @DeleteMapping("/product/{id}")
@@ -32,7 +33,7 @@ public class ProductController {
 
     // get all products with discount
     @GetMapping("/products/discount")
-    Iterable<Product> getAllProductsWithDiscount() {
+    Iterable<Product> getAllProductsWithDiscount()   {
         return productService.getAllProductsWithDiscount();
     }
 

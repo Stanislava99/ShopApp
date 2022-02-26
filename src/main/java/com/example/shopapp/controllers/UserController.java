@@ -15,13 +15,15 @@ public class UserController {
     public UserService userService;
 
     @PostMapping("/login")
-    ResponseEntity<User> login(@ModelAttribute User user) {
-        return ResponseEntity.ok(userService.authenticatedUser(user.getLogin(), user.getPassword()));
+    Long login(@ModelAttribute User user) {
+         ResponseEntity.ok(userService.authenticatedUser(user.getLogin(), user.getPassword()));
+         return user.getId();
     }
 
     @PostMapping("/register")
     ResponseEntity<User> register(@ModelAttribute User user) {
-        return ResponseEntity.ok( userService.registerUser(user.getLogin(), user.getPassword(), user.getEmail(), Role.USER));
+        return ResponseEntity.ok( userService.registerUser(user.getLogin(),
+                user.getPassword(), user.getEmail(), Role.USER));
     }
 
     @GetMapping("/users")

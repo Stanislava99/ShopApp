@@ -33,12 +33,6 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    @OneToMany
-//    @JoinTable(name = "users_table_product_cart",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_cart_id"))
-//    private List<Product> productCart;
-
 
     public Long getId() {
         return id;
@@ -79,14 +73,6 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
-
-//    public List<Product> getProductCart() {
-//        return productCart;
-//    }
-//
-//    public void setProductCart(Product productCart) {
-//        this.productCart.add(productCart);
-//    }
 
     @Override
     public boolean equals(Object o) {
