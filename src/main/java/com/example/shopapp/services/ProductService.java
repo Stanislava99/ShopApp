@@ -1,19 +1,21 @@
 package com.example.shopapp.services;
 import com.example.shopapp.Helper.Role;
 import com.example.shopapp.model.Product;
-import com.example.shopapp.model.User;
 import com.example.shopapp.model.UserProduct;
 import com.example.shopapp.repos.ProductRepository;
 import com.example.shopapp.repos.UserProductRepository;
 import com.example.shopapp.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.auditing.CurrentDateTimeProvider;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -82,10 +84,17 @@ public class ProductService {
         List<Product> products = productRepository.findAll();
         List<Product> productsWith3DaysDiscount = new ArrayList<>();
         for (Product product : products) {
-            if (product.getDiscountDays() < 4) {
+            if (Duration.between(LocalDateTime.now(), product.getDuration_date()).minusDays(4).isNegative()) {
                 productsWith3DaysDiscount.add(product);
             }
         }
         return productsWith3DaysDiscount;
+    }
+
+    public ResponseEntity<Product> addProductDiscount(Long product_id, int discount) {
+        Product product = productRepository.getById(product_id);
+        product.setDiscountPercentage(discount);
+        product.setDiscountPrice(discount);
+        return ResponseEntity.ok(productRepository.save(product));
     }
 }

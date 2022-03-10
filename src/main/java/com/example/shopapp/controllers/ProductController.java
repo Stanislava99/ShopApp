@@ -19,22 +19,29 @@ public class ProductController {
         return productService.getProducts();
     }
 
+    // add product
     @PostMapping("/product")
     ResponseEntity<Product> createProduct(@ModelAttribute Product product, @RequestParam Long id) {
         return (productService.createProduct(product,id) != null) ?
                 ResponseEntity.ok(productService.createProduct(product,id)) : ResponseEntity.badRequest().build();
     }
 
+    // delete product with id
     @DeleteMapping("/product/{id}")
     String deleteProduct(@PathVariable Long id,  @RequestParam Long personId) {
         return  productService.deleteProduct(id,personId);
     }
 
-
     // get all products with discount
     @GetMapping("/products/discount")
     Iterable<Product> getAllProductsWithDiscount()   {
         return productService.getAllProductsWithDiscount();
+    }
+
+    // add discount to a product
+    @PostMapping ("/product/addDiscount")
+    ResponseEntity<Product> addProductDiscount(@RequestParam Long product_id, @RequestParam int discount) {
+        return productService.addProductDiscount(product_id,discount);
     }
 
     // get products with 50% or more discount

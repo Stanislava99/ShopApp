@@ -2,10 +2,10 @@ package com.example.shopapp.model;
 
 import com.example.shopapp.Helper.ProductType;
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -39,7 +39,7 @@ public class Product {
     private int discountPrice;
 
     @Column(name = "discount_days")
-    private int discountDays;
+    private LocalDate duration_date;
 
     @Column(name = "image_url")
     private String imageUrl;
@@ -52,14 +52,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, int price, String description, String companyName, int discountPercentage, int discountPrice, int discountDays, String imageUrl, String productType) {
+    public Product(String name, int price, String description, String companyName, int discountPercentage, LocalDate duration_date, String imageUrl, String productType) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.companyName = companyName;
         this.discountPercentage = discountPercentage;
-        this.discountPrice = discountPrice;
-        this.discountDays = discountDays;
+        this.duration_date = duration_date;
         this.imageUrl = imageUrl;
         this.productType = ProductType.valueOf(productType);
     }
@@ -117,16 +116,16 @@ public class Product {
         return discountPrice;
     }
 
-    public void setDiscountPrice(int discountPrice) {
-        this.discountPrice = discountPrice;
+    public void setDiscountPrice(int discountPercentage) {
+        this.discountPrice = this.price - (this.price * 20)/100;
     }
 
-    public int getDiscountDays() {
-        return discountDays;
+    public LocalDate getDuration_date() {
+        return duration_date;
     }
 
-    public void setDiscountDays(int discountDays) {
-        this.discountDays = discountDays;
+    public void setDuration_date(LocalDate discountDays) {
+        this.duration_date = discountDays;
     }
 
     public String getImageUrl() {
@@ -150,11 +149,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return price == product.price && discountPercentage == product.discountPercentage && discountPrice == product.discountPrice && discountDays == product.discountDays && Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(companyName, product.companyName) && Objects.equals(imageUrl, product.imageUrl);
+        return price == product.price && discountPercentage == product.discountPercentage && discountPrice == product.discountPrice && duration_date == product.duration_date && Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(description, product.description) && Objects.equals(companyName, product.companyName) && Objects.equals(imageUrl, product.imageUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, description, companyName, discountPercentage, discountPrice, discountDays, imageUrl);
+        return Objects.hash(id, name, price, description, companyName, discountPercentage, discountPrice, duration_date, imageUrl);
     }
 }
